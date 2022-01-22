@@ -1,0 +1,87 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<title>Web Caculator</title>
+	<link rel="stylesheet" href="webcaculator.css" />
+	<script>
+	var showresult = "";
+	//var reg1 = /\^[^\/\*\+].+\d$/; // 判断是不是以 + - * /开始
+	var reg = /\d+(\+|\-|\*|\/)\d+/g;
+
+	//计算
+	function caculator(){
+		var noshowbtn = event.srcElement.innerText;
+		if(event.srcElement.tagName == "P" && noshowbtn !== "Youngbye" 
+			&&noshowbtn !== "<-" && noshowbtn !== "C" && noshowbtn !== "="){
+			showresult += event.srcElement.innerText;
+			console.log(showresult);
+			document.getElementById("showresult").innerText = showresult;
+		}
+	}
+
+	//计算结果
+	function caculateResult(){
+		if(showresult.match(reg)){
+			console.log("满足运算格式");
+		}
+		else{
+			alert("格式错误");
+		}
+		showresult = eval(showresult);
+		document.getElementById("showresult").innerText = showresult;
+		console.log(showresult + "result");
+
+	}
+	//清零
+	function clearNum(){
+		document.getElementById("showresult").innerText = 0;
+		showresult = "";
+	}
+
+	//退格
+	function backspace(){
+		showresult = showresult.substring(0, showresult.length - 1);
+		document.getElementById("showresult").innerText = showresult;
+	}
+
+	//个人信息
+	function alertInfo(){
+		alert("author: Youngbye" + "\n" + "From:SE");
+	}
+		
+	</script>
+</head>
+<body>
+	<div id="content" 
+		onmouseover = "if(event.srcElement.tagName == 'P') event.srcElement.style.color = '#ffffff'"
+		onmouseout = "if(event.srcElement.tagName == 'P') event.srcElement.style.color = '#000000'"
+		onClick = "caculator()">
+		<div id = "content1" >
+		<div id="showresult"><p>0</p></div>
+		<div class="btn" id="seven"><p>7</p></div>
+		<div class="btn" id="eight"><p>8</p></div>
+		<div class="btn" id="nine"><p>9</p></div>
+		<div class="btn" id="four"><p>4</p></div>
+		<div class="btn" id="five"><p>5</p></div>
+		<div class="btn" id="six"><p>6</p></div>
+		<div class="btn" id="one"><p>1</p></div>
+		<div class="btn" id="two"><p>2</p></div>
+		<div class="btn" id="three"><p>3</p></div>
+		<div id="zero"><p>0</p></div>
+		<div class="btn" id="dot"><p>.</p></div>
+		</div>
+		<div id="content2">
+		<div class="btn_2" id="backspace" onclick = "backspace()"><p><-</p></div>
+		<div class="btn_2" id="clear" onclick = "clearNum()"><p id = "clear">C</p></div>
+		<div class="btn_2" id="division"><p>/</p></div>
+		<div class="btn_2" id="multiply"><p>*</p></div>
+		<div class="btn_2" id="minus"><p>-</p></div>
+		<div class="btn_2" id="plus"><p>+</p></div>
+		<div id="result" onclick = "caculateResult()"><p>=</p></div>
+		<div id="info" onclick = "alertInfo()"><p>Youngbye</p></div>
+		</div> 
+	</div>
+
+</body>
+</html>
